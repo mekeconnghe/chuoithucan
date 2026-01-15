@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chuỗi Thức Ăn</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Chuỗi Thức Ăn Tự Nhiên - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Môi trường Bụi rậm Địa Trung Hải - Rừng Bạch đàn - Rừng thông khô - Vùng triều - Cánh đồng nho" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/49/1a/8e/491a8e0e06f023faa79028a4352a5b63.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/chuoithucan/moitruong41-45/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="landmark" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Chuỗi Thức Ăn Tự Nhiên
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            // 41. Môi trường Bụi rậm Địa Trung Hải
+            {
+                id: 81, name: "Bụi rậm Địa Trung Hải", image: "bui-ram-dia-trung-hai-81.jpg",
+                facts: [
+                    "<b>Cây nguyệt quế:</b> Loài thực vật thường xanh, lá có mùi thơm, là thức ăn cơ bản cho động vật nhỏ.",
+                    "<b>Thỏ:</b> Loài gặm nhấm nhanh nhẹn, thích ăn lá cây và cỏ non dưới tán bụi rậm.",
+                    "<b>Cáo đỏ:</b> Kẻ săn mồi ranh mãnh với bộ lông đỏ, thường săn bắt thỏ làm thức ăn.",
+                    "<b>Đại bàng:</b> Chúa tể bầu trời với đôi mắt tinh tường, lao xuống để săn cáo đỏ.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân giải xác động vật, trả lại dinh dưỡng cho đất đai khô cằn."
+                ]
+            },
+            {
+                id: 82, name: "Bụi rậm Địa Trung Hải", image: "bui-ram-dia-trung-hai-82.jpg",
+                facts: [
+                    "<b>Cây sồi thấp:</b> Loài cây bụi đặc trưng, chịu hạn tốt, cung cấp lá và nơi trú ẩn.",
+                    "<b>Sâu:</b> Ăn lá cây sồi để lớn, là nguồn thức ăn giàu đạm cho các loài chim.",
+                    "<b>Chim chích:</b> Loài chim nhỏ bé, bay lượn khéo léo giữa các bụi cây để bắt sâu.",
+                    "<b>Mèo rừng:</b> Sống ẩn dật và săn mồi vào ban đêm, rất thích ăn thịt chim.",
+                    "<b>Nấm:</b> Mọc lên từ lớp lá mục ẩm ướt, giúp phân hủy chất hữu cơ."
+                ]
+            },
+            // 42. Môi trường Rừng Bạch đàn (Eucalyptus Forest)
+            {
+                id: 83, name: "Rừng Bạch đàn", image: "rung-bach-dan-83.jpg",
+                facts: [
+                    "<b>Lá bạch đàn:</b> Chứa tinh dầu nhưng là nguồn thức ăn duy nhất của một số loài thú.",
+                    "<b>Gấu túi Koala:</b> Loài thú có túi ngủ nhiều, chuyên ăn lá bạch đàn độc đáo.",
+                    "<b>Chó dingo:</b> Loài chó hoang dã của Úc, săn mồi theo bầy hoặc đơn lẻ.",
+                    "<b>Đại bàng đuôi nêm:</b> Loài chim săn mồi lớn nhất Úc, có thể bắt chó dingo nhỏ.",
+                    "<b>Vi khuẩn phân hủy:</b> Giúp phân hủy xác sinh vật trong môi trường rừng khô nóng."
+                ]
+            },
+            {
+                id: 84, name: "Rừng Bạch đàn", image: "rung-bach-dan-84.jpg",
+                facts: [
+                    "<b>Hoa bạch đàn:</b> Nở rộ với nhiều mật ngọt, thu hút các loài chim và côn trùng.",
+                    "<b>Vẹt:</b> Có bộ lông sặc sỡ, dùng mỏ cứng để ăn hạt và hút mật hoa.",
+                    "<b>Rắn:</b> Ẩn mình trên cành cây hoặc dưới đất, chuyên săn bắt chim chóc.",
+                    "<b>Quạ:</b> Loài chim thông minh, ăn tạp, thường săn bắt rắn nhỏ.",
+                    "<b>Nấm:</b> Phân hủy gỗ bạch đàn cứng và cành cây gãy rụng."
+                ]
+            },
+            // 43. Môi trường Rừng thông khô (Pine Barrens)
+            {
+                id: 85, name: "Rừng thông khô", image: "rung-thong-kho-85.jpg",
+                facts: [
+                    "<b>Hạt thông:</b> Nằm trong quả nón cứng, là thức ăn giàu dinh dưỡng mùa đông.",
+                    "<b>Sóc:</b> Nhanh nhẹn leo trèo, có thói quen thu gom hạt thông để dự trữ.",
+                    "<b>Rắn lục:</b> Ngụy trang màu xanh giống lá cây, nằm phục kích săn sóc.",
+                    "<b>Diều hâu:</b> Bay lượn trên cao, quan sát và lao xuống bắt rắn.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân hủy lớp lá kim dày đặc phủ kín mặt đất."
+                ]
+            },
+            {
+                id: 86, name: "Rừng thông khô", image: "rung-thong-kho-86.jpg",
+                facts: [
+                    "<b>Cây bụi thấp:</b> Mọc dưới tán thông thưa, cung cấp thức ăn cho thú ăn cỏ.",
+                    "<b>Hươu:</b> Loài động vật móng guốc, thường kiếm ăn ở tầng cây thấp.",
+                    "<b>Sói:</b> Kẻ săn mồi đỉnh cao, sống theo bầy đàn để săn hươu.",
+                    "<b>Gấu:</b> Loài ăn tạp to lớn và mạnh mẽ, có thể cạnh tranh thức ăn với sói.",
+                    "<b>Nấm:</b> Mọc dưới gốc cây, giúp tái tạo dinh dưỡng cho đất rừng."
+                ]
+            },
+            // 44. Môi trường Vùng triều (Intertidal Zone)
+            {
+                id: 87, name: "Vùng triều", image: "vung-trieu-87.jpg",
+                facts: [
+                    "<b>Tảo bám đá:</b> Bám chặt vào bề mặt đá để chịu đựng sóng biển đánh mạnh.",
+                    "<b>Ốc nón:</b> Di chuyển chậm chạp trên đá, cạo tảo làm thức ăn.",
+                    "<b>Sao biển:</b> Dùng các chân ống nhỏ li ti để di chuyển và săn bắt ốc.",
+                    "<b>Mòng biển:</b> Loài chim biển ồn ào, bay lượn tìm kiếm sao biển khi triều rút.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân hủy xác sinh vật biển trôi dạt vào kẽ đá."
+                ]
+            },
+            {
+                id: 88, name: "Vùng triều", image: "vung-trieu-88.jpg",
+                facts: [
+                    "<b>Mùn bã:</b> Các mảnh vụn hữu cơ lắng đọng ở các vũng nước yên tĩnh.",
+                    "<b>Côm:</b> Loài giáp xác nhỏ bơi lội, lọc mùn bã làm thức ăn.",
+                    "<b>Cá bống:</b> Sống ở đáy vũng nước, ngụy trang giỏi để bắt mồi.",
+                    "<b>Vịt biển:</b> Lặn ngụp giỏi trong nước để bắt cá và sinh vật đáy.",
+                    "<b>Nấm:</b> Các loại nấm biển giúp phân hủy chất hữu cơ trong môi trường mặn."
+                ]
+            },
+            // 45. Môi trường Cánh đồng nho (Vineyard)
+            {
+                id: 89, name: "Cánh đồng nho", image: "canh-dong-nho-89.jpg",
+                facts: [
+                    "<b>Cây nho:</b> Loài cây leo trồng lấy quả, lá xanh non thu hút nhiều côn trùng.",
+                    "<b>Rầy nho:</b> Côn trùng nhỏ chuyên chích hút nhựa cây nho.",
+                    "<b>Nhện:</b> Giăng tơ làm bẫy hoặc săn mồi trực tiếp để bắt rầy.",
+                    "<b>Chim sâu:</b> Loài chim nhỏ chăm chỉ, nhảy nhót tìm bắt nhện và sâu bọ.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân hủy lá nho rụng và xác côn trùng trong đất."
+                ]
+            },
+            {
+                id: 90, name: "Cánh đồng nho", image: "canh-dong-nho-90.jpg",
+                facts: [
+                    "<b>Quả nho:</b> Chùm quả ngọt mọng nước, là thức ăn hấp dẫn khi chín.",
+                    "<b>Ong vò vẽ:</b> Bị thu hút bởi vị ngọt, thường đến ăn dịch quả nho chín.",
+                    "<b>Thằn lằn:</b> Bò sát nhỏ, di chuyển nhanh nhẹn để săn bắt ong.",
+                    "<b>Cú:</b> Hoạt động về đêm, với đôi mắt tinh tường chuyên săn thằn lằn.",
+                    "<b>Nấm:</b> Phát triển trên các quả rụng hoặc cành khô mục."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Chuỗi thức ăn ở các môi trường tự nhiên!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
