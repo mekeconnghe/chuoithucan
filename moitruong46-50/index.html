@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chuỗi Thức Ăn</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Chuỗi Thức Ăn Tự Nhiên - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các môi trường Vườn rau - Rừng khô Châu Phi - Rừng khô Madagascar - Thảo nguyên ôn đới - Hồ nước mặn" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/08/97/6f/08976f046b17fca3412eac44775cd601.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/chuoithucan/moitruong46-50/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="landmark" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Chuỗi Thức Ăn Tự Nhiên
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            // 46. Môi trường Vườn rau (Vegetable Garden)
+            {
+                id: 91, name: "Vườn rau", image: "vuon-rau-91.jpg",
+                facts: [
+                    "<b>Cải bắp:</b> Loại rau có lá cuộn tròn xanh mướt, là món ăn khoái khẩu của loài sâu.",
+                    "<b>Sâu tơ:</b> Kẻ ăn lá tham lam, thường nhả tơ làm tổ và trốn dưới mặt lá rau.",
+                    "<b>Cóc:</b> Chàng vệ sĩ da sần sùi của khu vườn, chuyên bắt sâu bọ bằng chiếc lưỡi dính.",
+                    "<b>Rắn cỏ:</b> Loài bò sát không độc, trườn nhẹ nhàng trong cỏ để săn bắt ếch nhái.",
+                    "<b>Vi khuẩn phân hủy:</b> Biến lá rụng và xác sinh vật thành đất mùn tơi xốp cho vườn."
+                ]
+            },
+            {
+                id: 92, name: "Vườn rau", image: "vuon-rau-92.jpg",
+                facts: [
+                    "<b>Xà lách:</b> Những lá rau non mềm mọc sát đất, chứa đầy nước ngọt mát.",
+                    "<b>Ốc sên:</b> Mang chiếc vỏ nặng nề trên lưng, bò chậm chạp gặm nhấm lá rau.",
+                    "<b>Chuột nhắt:</b> Nhanh nhẹn lén lút trong đêm, rất thích ăn ốc sên và các loại hạt.",
+                    "<b>Mèo:</b> Thợ săn điêu luyện với đôi mắt sáng rực trong đêm, là khắc tinh của loài chuột.",
+                    "<b>Nấm:</b> Mọc lên từ những nơi ẩm ướt, giúp phân hủy chất hữu cơ trả lại cho đất."
+                ]
+            },
+            // 47. Môi trường Rừng khô Châu Phi
+            {
+                id: 93, name: "Rừng khô Châu Phi", image: "rung-kho-chau-phi-93.jpg",
+                facts: [
+                    "<b>Cây bao báp:</b> Loài cây khổng lồ tích trữ nước trong thân, có quả rất ngon.",
+                    "<b>Khỉ đầu chó:</b> Sống thành đàn ồn ào, leo trèo giỏi để hái quả bao báp.",
+                    "<b>Báo hoa mai:</b> Leo cây cực giỏi, thường kéo con mồi lên cây cao để ăn an toàn.",
+                    "<b>Sư tử:</b> Chúa sơn lâm dũng mãnh, săn mồi theo bầy đàn với sức mạnh phi thường.",
+                    "<b>Vi khuẩn phân hủy:</b> Dọn dẹp xác động vật dưới cái nắng gay gắt của châu Phi."
+                ]
+            },
+            {
+                id: 94, name: "Rừng khô Châu Phi", image: "rung-kho-chau-phi-94.jpg",
+                facts: [
+                    "<b>Cỏ khô:</b> Loại thực vật vàng úa nhưng dẻo dai, chịu được mùa khô hạn khắc nghiệt.",
+                    "<b>Mối:</b> Xây những tổ đất cao như tòa lâu đài, chuyên ăn cỏ khô và gỗ mục.",
+                    "<b>Tê tê:</b> Có lớp vảy cứng như áo giáp, dùng lưỡi dài dính bắt mối trong tổ.",
+                    "<b>Linh cẩu:</b> Có hàm răng cực khỏe để nhai xương, thường săn mồi hoặc ăn xác thối.",
+                    "<b>Nấm:</b> Sinh sôi nhanh chóng khi mùa mưa đến, phân hủy gỗ và cỏ mục."
+                ]
+            },
+            // 48. Môi trường Rừng khô Madagascar
+            {
+                id: 95, name: "Rừng khô Madagascar", image: "rung-madagascar-95.jpg",
+                facts: [
+                    "<b>Cây mọng nước:</b> Các loài cây có gai nhọn, giữ nước trong thân để sống nơi khô cằn.",
+                    "<b>Vượn cáo:</b> Loài linh trưởng có đuôi dài, nhảy nhót linh hoạt giữa các cành cây.",
+                    "<b>Cầy Fossa:</b> Kẻ săn mồi hung dữ nhất đảo Madagascar, leo cây giỏi để bắt vượn.",
+                    "<b>Trăn Madagascar:</b> Loài bò sát lớn, cuộn mình siết chặt con mồi trước khi nuốt chửng.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân giải xác sinh vật, giúp tái tạo dinh dưỡng cho khu rừng sỏi đá."
+                ]
+            },
+            {
+                id: 96, name: "Rừng khô Madagascar", image: "rung-madagascar-96.jpg",
+                facts: [
+                    "<b>Hoa:</b> Nở rực rỡ sắc màu để mời gọi các loài động vật đến hút mật.",
+                    "<b>Côn trùng:</b> Bay lượn tấp nập để hút mật hoa và giúp cây thụ phấn.",
+                    "<b>Tắc kè:</b> Bậc thầy ngụy trang, đổi màu da hòa lẫn vào vỏ cây để rình bắt côn trùng.",
+                    "<b>Diều hâu:</b> Sát thủ bầu trời với đôi mắt tinh tường, lao xuống tóm gọn tắc kè.",
+                    "<b>Nấm:</b> Mọc trên thân cây mục, đóng vai trò dọn dẹp vệ sinh cho rừng."
+                ]
+            },
+            // 49. Môi trường Thảo nguyên ôn đới (Prairie)
+            {
+                id: 97, name: "Thảo nguyên ôn đới", image: "thao-nguyen-on-doi-97.jpg",
+                facts: [
+                    "<b>Cỏ:</b> Mọc thành những cánh đồng bạt ngàn, rễ bám sâu giữ đất chống xói mòn.",
+                    "<b>Chuột túi má:</b> Có chiếc túi ở má để gom hạt và rễ cỏ mang về hang dự trữ.",
+                    "<b>Chồn sương:</b> Thân hình thon dài giúp chúng chui tọt vào hang sâu để săn chuột.",
+                    "<b>Sói đồng cỏ:</b> Thông minh và dai sức, tiếng hú của chúng vang vọng khắp thảo nguyên.",
+                    "<b>Vi khuẩn phân hủy:</b> Phân hủy xác động vật, giúp đất thảo nguyên luôn màu mỡ."
+                ]
+            },
+            {
+                id: 98, name: "Thảo nguyên ôn đới", image: "thao-nguyen-on-doi-98.jpg",
+                facts: [
+                    "<b>Hạt cỏ:</b> Rụng đầy mặt đất vào mùa thu, là nguồn lương thực quý giá cho chim chóc.",
+                    "<b>Chim sẻ đồng:</b> Nhỏ bé và nhanh nhẹn, thường sà xuống đất nhặt hạt cỏ.",
+                    "<b>Rắn chuông:</b> Rung chiếc đuôi tạo tiếng kêu cảnh báo, có nọc độc hạ gục chim.",
+                    "<b>Đại bàng:</b> Sải cánh rộng lớn, lao từ trên cao xuống với móng vuốt sắc nhọn.",
+                    "<b>Nấm:</b> Phân hủy các chất hữu cơ còn sót lại, làm sạch môi trường."
+                ]
+            },
+            // 50. Môi trường Hồ nước mặn
+            {
+                id: 99, name: "Hồ nước mặn", image: "ho-nuoc-man-99.jpg",
+                facts: [
+                    "<b>Tảo chịu mặn:</b> Loài thực vật bé xíu tạo nên màu sắc độc đáo cho nước hồ.",
+                    "<b>Tôm muối:</b> Loài giáp xác nhỏ sống được ở nơi nước cực mặn mà loài khác không sống nổi.",
+                    "<b>Cá nhỏ:</b> Bơi thành đàn lớn, lọc nước liên tục để ăn tôm và tảo.",
+                    "<b>Chim hồng hạc:</b> Có bộ lông hồng tuyệt đẹp nhờ ăn tôm, thường đứng một chân nghỉ ngơi.",
+                    "<b>Vi khuẩn phân hủy:</b> Chịu được độ mặn cao, phân giải xác sinh vật lắng xuống đáy hồ."
+                ]
+            },
+            {
+                id: 100, name: "Hồ nước mặn", image: "ho-nuoc-man-100.jpg",
+                facts: [
+                    "<b>Thực vật phù du:</b> Trôi nổi lềnh bềnh trên mặt nước, là thức ăn đầu tiên của chuỗi.",
+                    "<b>Ấu trùng ruồi biển:</b> Sinh sôi nảy nở trong nước mặn, là mồi ngon cho chim lội nước.",
+                    "<b>Chim choắt:</b> Có chiếc mỏ dài và nhọn, chuyên sục vào bùn nước để tìm bắt mồi.",
+                    "<b>Cắt lớn:</b> Loài chim săn mồi có tốc độ bay cực nhanh, đuổi bắt chim choắt trên không.",
+                    "<b>Nấm:</b> Các loại nấm đặc biệt giúp phân hủy chất hữu cơ ven bờ hồ mặn."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Chuỗi thức ăn ở các môi trường tự nhiên!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
